@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Equipo;
+use App\Incidente;
+use App\Mantenimiento;
 use Illuminate\Http\Request;
 
 class EquipoController extends Controller
@@ -14,7 +16,15 @@ class EquipoController extends Controller
      */
     public function index()
     {
-        //
+        $equipos = Equipo::all();
+        $mantenimientos = Mantenimiento::all();
+        $incidentes = Incidente::all();
+        $datos = array(
+            'equipos'=>$equipos,
+            'mantenimientos'=>$mantenimientos,
+            'incidentes'=>$incidentes,
+        );
+        return view('index',$datos);
     }
 
     /**
