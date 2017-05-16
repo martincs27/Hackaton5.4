@@ -6,8 +6,8 @@
     <meta name="author" content="">
     <link rel="icon" href="http://getbootstrap.com/favicon.ico">
     <title>Practica3 </title>
-    <link href="{{ url('/assets/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ url('/assets/bootstrap/css/dashboard.css') }}" rel="stylesheet">
+    <link href="{{ url('/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url('/css/dashboard.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -86,8 +86,8 @@
     </div>
 </div>
 
-<script src="{{ url('/assets/bootstrap/js/jquery.min.js') }}"></script>
-<script src="{{ url('/assets/bootstrap/js/bootstrap.min.js') }}"></script>
+<script src="{{ url('/js/jquery.min.js') }}"></script>
+<script src="{{ url('/js/bootstrap.min.js') }}"></script>
 
 
 </body></html>
