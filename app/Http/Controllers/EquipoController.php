@@ -6,6 +6,7 @@ use App\Equipo;
 use App\Incidente;
 use App\Mantenimiento;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class EquipoController extends Controller
 {
@@ -16,7 +17,7 @@ class EquipoController extends Controller
      */
     public function index()
     {
-        $equipos = Equipo::all();
+        /*$equipos = Equipo::all();
         $mantenimientos = Mantenimiento::all();
         $incidentes = Incidente::all();
         $datos = array(
@@ -24,9 +25,31 @@ class EquipoController extends Controller
             'mantenimientos'=>$mantenimientos,
             'incidentes'=>$incidentes,
         );
-        return view('index',$datos);
+        return view('index',$datos);*/
+        $equipos = Cache::remember('cacheequipos', 15 / 60, function () {
+            return Fabricante::simplePaginate(10);  // Paginamos cada 10 elementos.
+
+        });
+        return response()->json(['status' => 'ok', 'siguiente' => $fabricantes->nextPageUrl(), 'anterior' => $fabricantes->previousPageUrl(), 'data' => $fabricantes->items()], 200);
     }
 
+        public function show($id)
+    {
+        // Corresponde con la ruta /fabricantes/{fabricante}
+        // Buscamos un fabricante por el ID.
+        $equipo=Equipo::find($id);
+
+        // Chequeamos si encontró o no el fabricante
+        if (! $equipo)
+        {
+            // Se devuelve un array errors con los errores detectados y código 404
+            return response()->json(['errors'=>Array(['code'=>404,'message'=>'No se encuentra un fabricante con ese código.'])],404);
+        }
+
+        // Devolvemos la información encontrada.
+        return response()->json(['status'=>'ok','data'=>$equipo],200);
+
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -54,10 +77,10 @@ class EquipoController extends Controller
      * @param  \App\Equipo  $equipo
      * @return \Illuminate\Http\Response
      */
-    public function show(Equipo $equipo)
+    /*public function show(Equipo $equipo)
     {
         //
-    }
+    }*/
 
     /**
      * Show the form for editing the specified resource.

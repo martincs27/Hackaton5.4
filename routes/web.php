@@ -15,3 +15,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/hackaton','EquipoController@index');
+Route::resource('/equipos','EquipoController',[ 'only'=>['index','show'] ]);
