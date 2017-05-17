@@ -45,7 +45,22 @@
         </tr>
         </tbody>
     </table>
-    <button id="btn-add" class="btn btn-primary btn-xs" ng-click="toggle('addIncidente', 0)">Add New Incidente</button>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Fecha</th>
+            <th>Equipo</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="mantenimiento in mantenimientos">
+            <td>{{ mantenimiento.id }}</td>
+            <td>{{ mantenimiento.fecha}}</td>
+            <td>{{ mantenimiento.equipo_id}}</td>
+        </tr>
+        </tbody>
+    </table>
     <!-- End of Table-to-load-the-data Part -->
     <!-- Modal (Pop up when detail button clicked) -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -75,39 +90,11 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                    <h4 class="modal-title" id="myModalLabel">{{form_title}}</h4>
-                </div>
-                <div class="modal-body">
-                    <form name="frmIncidente" class="form-horizontal" novalidate="">
-
-                        <div class="form-group error">
-                            <label for="inputEmail3" class="col-sm-3 control-label">Name</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control has-error" id="nombre" name="nombre" placeholder="Nombre" value="{{nombre}}"
-                                       ng-model="equipo.nombre" ng-required="true">
-                                <span class="help-inline"
-                                      ng-show="frmEquipos.nombre.$invalid && frmEquipos.nombre.$touched">Name field is required</span>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="btn-save" ng-click="save(modalstate, id)" ng-disabled="frmEquipos.$invalid">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
 </div>
 
 <!-- Load Javascript Libraries (AngularJS, JQuery, Bootstrap) -->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-<script src="<?= asset('js/jquery.min.js') ?>"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- AngularJS Application Scripts -->

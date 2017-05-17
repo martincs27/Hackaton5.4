@@ -8,6 +8,10 @@ app.controller('equiposController', function($scope, $http, API_URL) {
         .success(function(response) {
             $scope.incidentes = response;
         });
+    $http.get(API_URL + "mantenimientos")
+        .success(function(response) {
+            $scope.mantenimientos = response;
+        });
 
     //show modal form
     $scope.toggle = function(modalstate, id) {
@@ -38,6 +42,13 @@ app.controller('equiposController', function($scope, $http, API_URL) {
                 $scope.form_title = "Add New Incidente";
                 console.log(id);
                 $('#myModal2').modal('show');
+                break;
+            case 3:
+                $scope.form_title = "Add New Mantenimiento";
+                console.log(id);
+                $('#myModal3').modal('show');
+                break;
+            default:
                 break;
         }
     }
