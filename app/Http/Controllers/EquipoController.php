@@ -18,11 +18,7 @@ class EquipoController extends Controller
      */
     public function index()
     {
-        $equipos = Cache::remember('cacheequipos', 15 / 60, function () {
-            return Equipo::simplePaginate(10);  // Paginamos cada 10 elementos.
-
-        });
-        return response()->json(['status' => 'ok', 'siguiente' => $equipos->nextPageUrl(), 'anterior' => $equipos->previousPageUrl(), 'data' => $equipos->items()], 200);
+        return response()->json(Equipo::all(),200);
     }
 
         public function show($id)
@@ -32,7 +28,7 @@ class EquipoController extends Controller
         {
             return response()->json(['errors'=>Array(['code'=>404,'message'=>'No se encuentra un equipo con ese código.'])],404);
         }
-        return response()->json(['status'=>'ok','data'=>$equipo],200);
+        return response()->json($equipo,200);
 
     }
     /**
@@ -57,12 +53,8 @@ class EquipoController extends Controller
             {
                 return response()->json(['errors'=>array(['code'=>422,'message'=>'Faltan datos necesarios para procesar el alta.'])],422);
             }
-            $nuevoEquipo=Equipo::create($request->all());
-
-            // Devolvemos la respuesta Http 201 (Created) + los datos del nuevo equipo + una cabecera de Location + cabecera JSON
-            $respuesta= Response::make(json_encode(['data'=>$nuevoEquipo]),201)->header('Location','http://localhost:8000/equipos/'.$nuevoEquipo->id)->header('Content-Type','application/json');
-            return $respuesta;
-
+            $equipo = Equipo::create($request->all());
+            return 'Equipo correctamente creado'.$equipo->id;
         }
 
     /**

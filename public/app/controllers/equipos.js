@@ -4,29 +4,42 @@ app.controller('equiposController', function($scope, $http, API_URL) {
         .success(function(response) {
             $scope.equipos = response;
         });
+    $http.get(API_URL + "incidentes")
+        .success(function(response) {
+            $scope.incidentes = response;
+        });
 
     //show modal form
     $scope.toggle = function(modalstate, id) {
         $scope.modalstate = modalstate;
 
-        switch (modalstate) {
-            case 'add':
-                $scope.form_title = "Add New Equipo";
+        switch (id) {
+            case 0:
+                switch (modalstate) {
+                    case 'add':
+                        $scope.form_title = "Add New Equipo";
+                        break;
+                    case 'edit':
+                        $scope.form_title = "Equipo Detail";
+                        $scope.id = id;
+                        $http.get(API_URL + 'equipos/' + id)
+                            .success(function(response) {
+                                console.log(response);
+                                $scope.equipo = response;
+                            });
+                        break;
+                    default:
+                        break;
+                }
+                console.log(id);
+                $('#myModal').modal('show');
                 break;
-            case 'edit':
-                $scope.form_title = "Equipo Detail";
-                $scope.id = id;
-                $http.get(API_URL + 'equipos/' + id)
-                    .success(function(response) {
-                        console.log(response);
-                        $scope.equipo = response;
-                    });
-                break;
-            default:
+            case 1:
+                $scope.form_title = "Add New Incidente";
+                console.log(id);
+                $('#myModal2').modal('show');
                 break;
         }
-        console.log(id);
-        $('#myModal').modal('show');
     }
     $scope.save = function(modalstate, id) {
         var url = API_URL + "equipos";
@@ -37,7 +50,7 @@ app.controller('equiposController', function($scope, $http, API_URL) {
         }
 
         $http({
-            method: 'POST',
+            method: 'PUT',
             url: url,
             data: $.param($scope.equipo),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}

@@ -15,11 +15,7 @@ class IncidenteController extends Controller
      */
     public function index()
     {
-        $incidentes = Cache::remember('cacheequipos', 15 / 60, function () {
-            return Incidente::simplePaginate(10);  // Paginamos cada 10 elementos.
-
-        });
-        return response()->json(['status' => 'ok', 'siguiente' => $incidentes->nextPageUrl(), 'anterior' => $incidentes->previousPageUrl(), 'data' => $incidentes->items()], 200);
+        return response()->json(Incidente::all(), 200);
     }
 
     public function show($id)
