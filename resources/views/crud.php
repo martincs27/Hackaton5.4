@@ -49,14 +49,16 @@
         <thead>
         <tr>
             <th>ID</th>
-            <th>Fecha</th>
+            <th>FechaInicio</th>
+            <th>FechaFin</th>
             <th>Equipo</th>
         </tr>
         </thead>
         <tbody>
         <tr ng-repeat="mantenimiento in mantenimientos">
             <td>{{ mantenimiento.id }}</td>
-            <td>{{ mantenimiento.fecha}}</td>
+            <td>{{ mantenimiento.fechainicio}}</td>
+            <td>{{ mantenimiento.fechafin}}</td>
             <td>{{ mantenimiento.equipo_id}}</td>
         </tr>
         </tbody>
