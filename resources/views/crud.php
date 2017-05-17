@@ -41,6 +41,7 @@
                 </div>
                 <div class="modal-body">
                     <form name="frmEquipos" class="form-horizontal" novalidate="">
+
                         <div class="form-group error">
                             <label for="inputEmail3" class="col-sm-3 control-label">Name</label>
                             <div class="col-sm-9">
