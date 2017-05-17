@@ -16,3 +16,5 @@ Route::get('/', function () {
 });
 Route::get('/hackaton','EquipoController@index');
 Route::resource('/equipos','EquipoController',[ 'only'=>['index','show'] ]);
+Route::resource('/incidentes','IncidenteController',[ 'only'=>['index','show'] ]);
+Route::resource('/mantenimientos','MantenimientoController',[ 'only'=>['index','show'] ]);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mantenimiento;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class MantenimientoController extends Controller
 {
@@ -14,7 +15,22 @@ class MantenimientoController extends Controller
      */
     public function index()
     {
-        //
+        $mantenimientos = Cache::remember('cacheequipos', 15 / 60, function () {
+            return Mantenimiento::simplePaginate(10);  // Paginamos cada 10 elementos.
+
+        });
+        return response()->json(['status' => 'ok', 'siguiente' => $mantenimientos->nextPageUrl(), 'anterior' => $mantenimientos->previousPageUrl(), 'data' => $mantenimientos->items()], 200);
+    }
+
+    public function show($id)
+    {
+        $mantenimiendo=Mantenimiento::find($id);
+        if (! $mantenimiendo)
+        {
+            return response()->json(['errors'=>Array(['code'=>404,'message'=>'No se encuentra un fabricante con ese código.'])],404);
+        }
+        return response()->json(['status'=>'ok','data'=>$mantenimiendo],200);
+
     }
 
     /**
@@ -44,10 +60,6 @@ class MantenimientoController extends Controller
      * @param  \App\Mantenimiento  $mantenimiento
      * @return \Illuminate\Http\Response
      */
-    public function show(Mantenimiento $mantenimiento)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
