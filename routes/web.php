@@ -15,6 +15,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/hackaton','EquipoController@index');
-Route::resource('/equipos','EquipoController',[ 'only'=>['index','show'] ]);
-Route::resource('/incidentes','IncidenteController',[ 'only'=>['index','show'] ]);
-Route::resource('/mantenimientos','MantenimientoController',[ 'only'=>['index','show'] ]);
+Route::resource('/equipos','EquipoController'   ,[ 'except'=>['edit','create'] ]);
+Route::resource('/incidentes','IncidenteController',[ 'except'=>['edit','create'] ]);
+Route::resource('/mantenimientos','MantenimientoController',[ 'except'=>['edit','create'] ]);
