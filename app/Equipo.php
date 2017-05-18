@@ -12,7 +12,7 @@ class Equipo extends Model
 
     public function incidentes()
     {
-        return $this->hasMany('App\Incidente');
+        return $this->hasMany('App\Incidente','equipo_id','id');
     }
 
     public function mantenimientos()

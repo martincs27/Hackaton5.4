@@ -15,11 +15,8 @@ class MantenimientoController extends Controller
      */
     public function index()
     {
-        $mantenimientos = Cache::remember('cacheequipos', 15 / 60, function () {
-            return Mantenimiento::simplePaginate(10);  // Paginamos cada 10 elementos.
-
-        });
-        return response()->json(['status' => 'ok', 'siguiente' => $mantenimientos->nextPageUrl(), 'anterior' => $mantenimientos->previousPageUrl(), 'data' => $mantenimientos->items()], 200);
+        $mantenimientos = Mantenimiento::all();
+        return response()->json($mantenimientos,200);
     }
 
     public function show($id)

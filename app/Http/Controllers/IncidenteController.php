@@ -3,89 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Incidente;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
 class IncidenteController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function equipoinc($id)
     {
-        return response()->json(Incidente::all(), 200);
+        $incidente= new Incidente();
+        $incidente->equipo_id = $id;
+        $incidente->fecha = Carbon::now(-5);
+        $incidente->save();
+        return response()->json('Creado exitosamente',200);
     }
-
-    public function show($id)
-    {
-        $incidente=Incidente::find($id);
-        if (! $incidente)
-        {
-            return response()->json(['errors'=>Array(['code'=>404,'message'=>'No se encuentra un fabricante con ese código.'])],404);
-        }
-        return response()->json(['status'=>'ok','data'=>$incidente],200);
-
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Incidente  $incidente
-     * @return \Illuminate\Http\Response
-     */
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Incidente  $incidente
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Incidente $incidente)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Incidente  $incidente
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Incidente $incidente)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Incidente  $incidente
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Incidente $incidente)
     {
         //

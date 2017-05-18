@@ -11,14 +11,10 @@ use Illuminate\Support\Facades\Cache;
 
 class EquipoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        return response()->json(Equipo::all(),200);
+        $equipos = Equipo::all();
+        return response()->json($equipos,200);
     }
 
         public function show($id)
@@ -31,22 +27,26 @@ class EquipoController extends Controller
         return response()->json($equipo,200);
 
     }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function mant($id)
     {
-        //
-    }
+        $mant=Equipo::find($id)->mantenimientos;
+        if (! $mant)
+        {
+            return response()->json(['errors'=>Array(['code'=>404,'message'=>'No se encuentra un equipo con ese código.'])],404);
+        }
+        return response()->json($mant,200);
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    }
+    public function inc($id)
+    {
+        $inc=Equipo::find($id)->incidentes;
+        if (! $inc)
+        {
+            return response()->json(['errors'=>Array(['code'=>404,'message'=>'No se encuentra un equipo con ese código.'])],404);
+        }
+        return response()->json($inc,200);
+
+    }
     public function store(Request $request)
         {
             if (!$request->input('nombre'))
@@ -56,36 +56,10 @@ class EquipoController extends Controller
             $equipo = Equipo::create($request->all());
             return 'Equipo correctamente creado'.$equipo->id;
         }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Equipo  $equipo
-     * @return \Illuminate\Http\Response
-     */
-    /*public function show(Equipo $equipo)
-    {
-        //
-    }*/
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Equipo  $equipo
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Equipo $equipo)
     {
         //
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Equipo  $equipo
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         $equipo=Equipo::find($id);
@@ -123,14 +97,6 @@ class EquipoController extends Controller
         return response()->json(['status'=>'ok','data'=>$equipo],200);
 
     }
-
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Equipo  $equipo
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $equipo=Equipo::find($id);

@@ -4,26 +4,16 @@ app.controller('equiposController', function($scope, $http, API_URL) {
         .success(function(response) {
             $scope.equipos = response;
         });
-    $http.get(API_URL + "incidentes")
-        .success(function(response) {
-            $scope.incidentes = response;
-        });
-    $http.get(API_URL + "mantenimientos")
-        .success(function(response) {
-            $scope.mantenimientos = response;
-        });
-
     //show modal form
     $scope.toggle = function(modalstate, id) {
         $scope.modalstate = modalstate;
-
-        switch (id) {
-            case 0:
                 switch (modalstate) {
-                    case 'add':
+                    case 'addEquipo':
                         $scope.form_title = "Add New Equipo";
+                        console.log(id);
+                        $('#myModal').modal('show');
                         break;
-                    case 'edit':
+                    case 'editEquipo':
                         $scope.form_title = "Equipo Detail";
                         $scope.id = id;
                         $http.get(API_URL + 'equipos/' + id)
@@ -31,47 +21,65 @@ app.controller('equiposController', function($scope, $http, API_URL) {
                                 console.log(response);
                                 $scope.equipo = response;
                             });
+                        console.log(id);
+                        $('#myModal').modal('show');
+                        break;
+                    case 'mantenimientoEquipo':
+                        $scope.id = id;
+                        $http.get(API_URL + 'equipos/mant/' + id)
+                            .success(function(response) {
+                                console.log(response);
+                                $scope.mantequipo = response;
+                            });
+                        console.log(id);
+                        $('#myModal2').modal('show');
+                        break;
+                    case 'incidenteEquipo':
+                        $scope.id = id;
+                        $http.get(API_URL + 'equipos/inc/' + id)
+                            .success(function(response) {
+                                console.log(response);
+                                $scope.incequipo = response;
+                            });
+                        console.log(id);
+                        $('#myModal3').modal('show');
                         break;
                     default:
                         break;
                 }
-                console.log(id);
-                $('#myModal').modal('show');
-                break;
-            case 1:
-                $scope.form_title = "Add New Incidente";
-                console.log(id);
-                $('#myModal2').modal('show');
-                break;
-            case 3:
-                $scope.form_title = "Add New Mantenimiento";
-                console.log(id);
-                $('#myModal3').modal('show');
-                break;
-            default:
-                break;
-        }
     }
     $scope.save = function(modalstate, id) {
         var url = API_URL + "equipos";
 
         //append equipo id to the URL if the form is in edit mode
-        if (modalstate === 'edit'){
+        if (modalstate === 'editEquipo'){
             url += "/" + id;
+            $http({
+                method: 'PUT',
+                url: url,
+                data: $.param($scope.equipo),
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).success(function(response) {
+                console.log(response);
+                location.reload();
+            }).error(function(response) {
+                console.log(response);
+                alert('This is embarassing. An error has occured. Please check the log for details');
+            });
+        }else{
+            $http({
+                method: 'POST',
+                url: url,
+                data: $.param($scope.equipo),
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).success(function(response) {
+                console.log(response);
+                location.reload();
+            }).error(function(response) {
+                console.log(response);
+                alert('This is embarassing. An error has occured. Please check the log for details');
+            });
         }
-
-        $http({
-            method: 'PUT',
-            url: url,
-            data: $.param($scope.equipo),
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-        }).success(function(response) {
-            console.log(response);
-            location.reload();
-        }).error(function(response) {
-            console.log(response);
-            alert('This is embarassing. An error has occured. Please check the log for details');
-        });
     }
 
     //delete record
@@ -93,5 +101,19 @@ app.controller('equiposController', function($scope, $http, API_URL) {
         } else {
             return false;
         }
+    }
+    $scope.newIncidente = function(id) {
+        $http({
+            method: 'GET',
+            url: API_URL + 'newinc/' + id
+        }).
+        success(function(data) {
+            console.log(data);
+            location.reload();
+        }).
+        error(function(data) {
+            console.log(data);
+            alert('Unable to save');
+        });
     }
 });

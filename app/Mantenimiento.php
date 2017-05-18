@@ -8,7 +8,7 @@ class Mantenimiento extends Model
 {
     protected $table = 'mantenimientos';
 
-    protected $fillable = ['id','fechainicio','fechafin'];
+    protected $fillable = ['id','fechainicio','fechafin','equipo_id'];
 
     public function Equipo()
     {

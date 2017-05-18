@@ -15,7 +15,7 @@
         <tr>
             <th>ID</th>
             <th>Name</th>
-            <th><button id="btn-add" class="btn btn-primary btn-xs" ng-click="toggle('add', 0)">Add New Equipo</button></th>
+            <th><button id="btn-add" class="btn btn-primary btn-xs" ng-click="toggle('addEquipo', 0)">Add New Equipo</button></th>
         </tr>
         </thead>
         <tbody>
@@ -23,43 +23,12 @@
             <td>{{  equipo.id }}</td>
             <td>{{ equipo.nombre }}</td>
             <td>
-                <button class="btn btn-default btn-xs btn-detail" ng-click="toggle('edit', equipo.id)">Edit</button>
+                <button class="btn btn-default btn-xs btn-detail" ng-click="toggle('editEquipo', equipo.id)">Edit</button>
+                <button class="btn btn-default btn-xs btn-detail" ng-click="toggle('mantenimientoEquipo', equipo.id)">Mantenimientos</button>
+                <button class="btn btn-default btn-xs btn-detail" ng-click="toggle('incidenteEquipo', equipo.id)">Incidentes</button>
                 <button class="btn btn-danger btn-xs btn-delete" ng-click="confirmDelete(equipo.id)">Delete</button>
+                <button class="btn btn-danger btn-xs btn-delete" ng-click="newIncidente(equipo.id)">Incidente</button>
             </td>
-        </tr>
-        </tbody>
-    </table>
-    <table class="table">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Fecha</th>
-            <th>Equipo</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="incidente in incidentes">
-            <td>{{  incidente.id }}</td>
-            <td>{{ incidente.fecha}}</td>
-            <td>{{ incidente.equipo_id}}</td>
-        </tr>
-        </tbody>
-    </table>
-    <table class="table">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>FechaInicio</th>
-            <th>FechaFin</th>
-            <th>Equipo</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="mantenimiento in mantenimientos">
-            <td>{{ mantenimiento.id }}</td>
-            <td>{{ mantenimiento.fechainicio}}</td>
-            <td>{{ mantenimiento.fechafin}}</td>
-            <td>{{ mantenimiento.equipo_id}}</td>
         </tr>
         </tbody>
     </table>
@@ -88,6 +57,56 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="btn-save" ng-click="save(modalstate, id)" ng-disabled="frmEquipos.$invalid">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Mantenimientos</h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>FechaInicio</th>
+                            <th>FechaFin</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="mantenimientoEquipo in mantequipo">
+                            <td>{{ mantenimientoEquipo.fechainicio}}</td>
+                            <td>{{ mantenimientoEquipo.fechafin}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Incidentes</h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Fecha</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="incidente in incequipo">
+                            <td>{{ incidente.fecha}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

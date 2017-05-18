@@ -8,7 +8,7 @@ class Incidente extends Model
 {
     protected $table = 'incidentes';
 
-    protected $fillable = ['id','fecha'];
+    protected $fillable = ['id','fecha','equipo_id'];
 
     public function Equipo()
     {
