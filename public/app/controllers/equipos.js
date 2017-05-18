@@ -13,6 +13,10 @@ app.controller('equiposController', function($scope, $http, API_URL) {
                         console.log(id);
                         $('#myModal').modal('show');
                         break;
+                    case 'addMantenimiento':
+                        console.log(id);
+                        $('#myModal4').modal('show');
+                        break;
                     case 'editEquipo':
                         $scope.form_title = "Equipo Detail";
                         $scope.id = id;
@@ -66,11 +70,24 @@ app.controller('equiposController', function($scope, $http, API_URL) {
                 console.log(response);
                 alert('This is embarassing. An error has occured. Please check the log for details');
             });
-        }else{
+        }else if(modalstate === 'addEquipo'){
             $http({
                 method: 'POST',
                 url: url,
                 data: $.param($scope.equipo),
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).success(function(response) {
+                console.log(response);
+                location.reload();
+            }).error(function(response) {
+                console.log(response);
+                alert('This is embarassing. An error has occured. Please check the log for details');
+            });
+        }else if(modalstate === 'addMantenimiento'){
+            $http({
+                method: 'POST',
+                url: "/newman/"+id,
+                data: $.param($scope.mantenimiento),
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             }).success(function(response) {
                 console.log(response);

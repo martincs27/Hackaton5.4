@@ -26,6 +26,7 @@
                 <button class="btn btn-default btn-xs btn-detail" ng-click="toggle('editEquipo', equipo.id)">Edit</button>
                 <button class="btn btn-default btn-xs btn-detail" ng-click="toggle('mantenimientoEquipo', equipo.id)">Mantenimientos</button>
                 <button class="btn btn-default btn-xs btn-detail" ng-click="toggle('incidenteEquipo', equipo.id)">Incidentes</button>
+                <button class="btn btn-default btn-xs btn-detail" ng-click="toggle('addMantenimiento', equipo.id)">AddMantenimiento</button>
                 <button class="btn btn-danger btn-xs btn-delete" ng-click="confirmDelete(equipo.id)">Delete</button>
                 <button class="btn btn-danger btn-xs btn-delete" ng-click="newIncidente(equipo.id)">Incidente</button>
             </td>
@@ -57,6 +58,42 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="btn-save" ng-click="save(modalstate, id)" ng-disabled="frmEquipos.$invalid">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" id="myModalLabel">ADD MANTENIMIENTO</h4>
+                </div>
+                <div class="modal-body">
+                    <form name="frmMantenimiento" class="form-horizontal" novalidate="">
+
+                        <div class="form-group error">
+                            <label for="datetime1" class="col-sm-3 control-label">FechaInicio</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control has-error" id="datetime1" name="datetime1" placeholder="FechaInicio" value=""
+                                       ng-model="mantenimiento.fechainicio" ng-required="true">
+                                <span class="help-inline"
+                                      ng-show="frmMantenimiento.fechainicio.$invalid && frmMantenimiento.fechainicio.$touched">Name field is required</span>
+                            </div>
+                        </div>
+                        <div class="form-group error">
+                            <label for="datetime1" class="col-sm-3 control-label">FechaFin</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control has-error" id="datetime2" name="datetime2" placeholder="FechaFin" value=""
+                                       ng-model="mantenimiento.fechafin" ng-required="true">
+                                <span class="help-inline"
+                                      ng-show="frmMantenimiento.fechafin.$invalid && frmMantenimiento.fechafin.$touched">Name field is required</span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btn-save" ng-click="save(modalstate, id)" ng-disabled="frmMantenimiento.$invalid">Save changes</button>
                 </div>
             </div>
         </div>

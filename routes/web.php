@@ -18,5 +18,6 @@ Route::resource('/equipos','EquipoController'   ,[ 'except'=>['edit','create'] ]
 Route::get('/equipos/mant/{id}', 'EquipoController@mant');
 Route::get('/equipos/inc/{id}', 'EquipoController@inc');
 Route::get('/newinc/{id}', 'IncidenteController@equipoinc');
+Route::post('/newman/{id}', 'MantenimientoController@equipoman');
 //Route::resource('/incidentes','IncidenteController',[ 'except'=>['edit','create'] ]);
 //Route::resource('/mantenimientos','MantenimientoController',[ 'except'=>['edit','create'] ]);
