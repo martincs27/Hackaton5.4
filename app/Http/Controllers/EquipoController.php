@@ -110,6 +110,12 @@ class EquipoController extends Controller
         {
             return response()->json(['errors'=>array(['code'=>409,'message'=>'Este equipo posee mantenimientos y no puede ser eliminado.'])],409);
         }
+        $incidentes = $equipo->incidentes;
+
+        if (sizeof($incidentes) >0)
+        {
+            return response()->json(['errors'=>array(['code'=>409,'message'=>'Este equipo posee mantenimientos y no puede ser eliminado.'])],409);
+        }
         $equipo->delete();
         return response()->json(['code'=>204,'message'=>'Se ha eliminado correctamente el equipo.'],204);
     }
